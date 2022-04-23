@@ -6,4 +6,13 @@ module Reusable
     text = lines.join
     return text.length
   end
+
+  def input_to_output
+    handle = File.open(ARGV[0], "r")
+    incoming_text = handle.read
+    handle.close
+    writer = File.open(ARGV[1], "w")
+    writer.write(incoming_text)
+    writer.close
+  end
 end
