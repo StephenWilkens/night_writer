@@ -1,10 +1,15 @@
 require './lib/night_reader'
 
+
 describe NightReader do
 let(:night_reader){NightReader.new}
 
   it 'exists' do
     expect(night_reader).to be_an(NightReader)
+  end
+
+  it 'can count characters' do
+    expect(night_reader.total_characters).to eq(0)
   end
 
   it 'can print a confirmation message' do
