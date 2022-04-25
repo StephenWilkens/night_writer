@@ -1,3 +1,4 @@
+require './spec/spec_helper'
 require './lib/night_reader'
 
 
@@ -8,6 +9,11 @@ let(:night_reader){NightReader.new}
     expect(night_reader).to be_an(NightReader)
   end
 
+  it "has readable attributes" do
+    expect(night_reader.input).to eq(ARGV[0])
+    expect(night_reader.output).to eq(ARGV[1])
+  end
+  
   it 'can count characters' do
     expect(night_reader.total_characters).to eq(0)
   end
