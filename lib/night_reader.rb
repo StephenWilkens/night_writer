@@ -17,6 +17,9 @@ class NightReader
   end
 
   def message
-    puts "Created #{ARGV[1]} containing #{total_characters} characters"
+    puts "Created #{output} containing #{total_characters} characters"
   end
 end
+
+night_reader = NightReader.new
+night_reader.message
