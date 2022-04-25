@@ -1,18 +1,25 @@
 module Reusable
 
-  def total_characters(argv_index_number)
-    lines = File.readlines(ARGV[argv_index_number])
-    line_count = lines.size
+  def total_characters
+    lines = File.readlines(output)
     text = lines.join
     return text.length
   end
 
-  def input_to_output
-    handle = File.open(ARGV[0], "r")
+  def translate_e_to_b
+    translated = []
+    handle = File.open(input, "r")
     incoming_text = handle.read
     handle.close
-    writer = File.open(ARGV[1], "w")
-    writer.write(incoming_text)
-    writer.close
+    incoming_text.each_char do |c|
+      @dictionary.each do |k, v|
+        if c == k.to_s
+          translated << v
+        end
+      end
+    end
+    # require "pry"; binding.pry
+    translated
   end
+
 end
