@@ -1,12 +1,17 @@
 require './spec/spec_helper'
 require './lib/translate'
 require './lib/reusable'
+
 describe Translate do
   include Reusable
   let(:translate){Translate.new}
 
   before do
     allow(FileManager).to receive(:reading).and_return("hello")
+  end
+
+  before do
+    allow(FileManager).to receive(:writing).and_return("hello")
   end
 
   it 'exists' do
@@ -46,10 +51,14 @@ describe Translate do
   end
 
   it 'can translate english to braille' do
-    expect(translate.translated_to_braille).to eq("OOO.OOOOO.\n....O.O.O.\nO.O.....O.")
+    expect(translate.translate_e_to_b).to eq( [["OO", "..", "O."], ["O.", "..", "O."], ["OO", "O.", ".."], ["OO", "O.", ".."], ["O.", "O.", "O."]])
   end
 
   it 'can turn translated into braille' do
-    expect(translate.translated_to_braille).to eq("OOO.OOOOO.\n....O.O.O.\nO.O.....O.")
+    expect(translate.translated_to_braille).to eq("OOO.OOOOO.\n....O.O.O.\nO.O.....O.\n")
+  end
+
+  it 'can write' do
+    expect(translate.writing).to eq("hello")
   end
 end

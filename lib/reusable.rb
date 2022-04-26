@@ -2,16 +2,16 @@ require_relative './file_manager'
 
 module Reusable
 
-#   def translate_e_to_b
-#     translated = []
-#     incoming_text = FileManager.reading
-#     incoming_text.each_char do |c|
-#       @dictionary.each do |k, v|
-#         if c == k.to_s
-#           translated << v
-#         end
-#       end
-#     end
-#     translated
-#   end
+  def total_characters
+    @lines = []
+    if ARGV[1] != nil
+      @lines = File.readlines(ARGV[1])
+    end
+    text = @lines.join
+    text.length
+  end
+
+  def message
+    puts "Created #{ARGV[1]} containing #{total_characters} characters"
+  end
 end

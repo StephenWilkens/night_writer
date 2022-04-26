@@ -1,6 +1,10 @@
+require_relative './reusable'
 require_relative './file_manager'
+
 class Reader
+  include Reusable
   attr_accessor :dictionary
+
   def initialize
     @dictionary = {
     ["O.","..",".."] => "a",
@@ -29,22 +33,13 @@ class Reader
     ["O.","OO",".O"] => "x",
     ["O.","OO","OO"] => "y",
     ["O.","O.","OO"] => "z",
-    ["..","..",".."] => ""}
-
-
+    ["..","..",".."] => ""
+    }
   end
 
-  def total_characters
-    @lines = []
-    if ARGV[1] != nil
-      @lines = File.readlines(ARGV[1])
-    end
-    text = @lines.join
-    return text.length
-  end
-
-  def message
-    puts "Created #{ARGV[1]} containing #{total_characters} characters"
+  def translate
+    b_to_e
+    message
   end
 
   def b_to_e
@@ -54,13 +49,8 @@ class Reader
     @dictionary.each do |k, v|
       if a == k
         english << v
-
       end
     end
-    english.join
-  end
-
-  def writing_to_e
-    FileManager.writing(b_to_e)
+    FileManager.writing(english.join)
   end
 end
