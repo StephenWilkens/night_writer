@@ -12,7 +12,7 @@ class Translate
       'b': ["OO","..",".."],
       'c': ["O.",".O",".."],
       'd': ["O.",".O","O."],
-      'e': ["O.",".O",".."],
+      'e': ["O.","..","O."],
       'f': ["OO",".O",".."],
       'g': ["OO",".O","O."],
       'h': ["OO","..","O."],
@@ -43,7 +43,7 @@ class Translate
 
   def write_input_to_output_file
     translated = translate_input.transpose
-    braille = translated.map { |row| row.join(' ')}.join("\n")
+    braille = translated.map { |row| row.join('')}.join("\n")
     writer = File.open(output, "w")
     writer.write(braille)
     writer.close
