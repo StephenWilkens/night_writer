@@ -13,7 +13,7 @@ let(:night_reader){NightReader.new}
     expect(night_reader.input).to eq(ARGV[0])
     expect(night_reader.output).to eq(ARGV[1])
   end
-  
+
   it 'can count characters' do
     expect(night_reader.total_characters).to eq(0)
   end
@@ -21,4 +21,9 @@ let(:night_reader){NightReader.new}
   it 'can print a confirmation message' do
     expect(night_reader.message).to be(puts "Created #{ARGV[1]} containing #{night_reader.total_characters} characters")
   end
+
+  it 'can translate a letter' do
+    expect(night.translate).to eq("a")
+  end
+
 end
