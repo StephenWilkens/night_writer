@@ -1,12 +1,10 @@
 require_relative './reusable'
-
+require_relative './file_manager'
 
 class Translate
   include Reusable
-  attr_accessor :dictionary, :input, :output
+  attr_accessor :dictionary
   def initialize
-    @input = ARGV[0]
-    @output = ARGV[1]
     @dictionary = {
       'a': ["O.","..",".."],
       'b': ["OO","..",".."],
@@ -37,20 +35,26 @@ class Translate
       " ": ["..","..",".."]}
   end
 
-  def translate_input
-    translate_e_to_b
+  def translate_e_to_b
+    translated = []
+    incoming_text = FileManager.reading
+    incoming_text.each_char do |c|
+      @dictionary.each do |k, v|
+        if c == k.to_s
+          translated << v
+        end
+      end
+    end
+    translated
   end
 
-  def write_input_to_output_file
-    translated = translate_input.transpose
-    braille = translated.map { |row| row.join('')}.join("\n")
-    writer = File.open(output, "w")
-    writer.write(braille)
-    writer.close
-    # require "pry"; binding.pry
+  def translated_to_braille
+    translated = translate_e_to_b.transpose
+    translated.map { |row| row.join('')}.join("\n")
+  end
+
+  def writing
+    FileManager.writing(translated_to_braille)
   end
 
 end
-translate = Translate.new
-translate.input = './message.txt' if translate.input.nil?
-translate.output = './braille.txt' if translate.output.nil?
