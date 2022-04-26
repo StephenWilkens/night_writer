@@ -49,12 +49,27 @@ class Translate
   end
 
   def translated_to_braille
+    formatted = []
     translated = translate_e_to_b.transpose
-    translated.map { |row| row.join('')}.join("\n")
+    translated_arr = translated.map { |row| row.join}
+    if translated_arr[0].length > 80
+      until translated_arr[0].length < 80 do
+        formatted << "#{translated_arr[0].slice!(0..79)}\n"
+        formatted << "#{translated_arr[1].slice!(0..79)}\n"
+        formatted << "#{translated_arr[2].slice!(0..79)}\n"
+      end
+      formatted << "#{translated_arr[0]}\n"
+      formatted << "#{translated_arr[1]}\n"
+      formatted << "#{translated_arr[2]}\n"
+    else
+      formatted << "#{translated_arr[0]}\n"
+      formatted << "#{translated_arr[1]}\n"
+      formatted << "#{translated_arr[2]}\n"
+    end
+    formatted.join
   end
 
   def writing
     FileManager.writing(translated_to_braille)
   end
-
 end
